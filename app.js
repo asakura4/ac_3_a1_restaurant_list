@@ -17,18 +17,40 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.get('/restaurants', (req, res) => {
+app.get('/', (req, res) => {
     //console.log(restaurants);
-    res.render('index', { restaurants });
+    Restaurant.find()
+        .lean()
+        .sort({_id: 'asc'})
+        .then(restaurants => res.render('index', {restaurants}))
+        .catch(error => console.error(error));
+})
+
+app.get('/restaurants/search', (req, res) => {
+    const keyword = req.query.keyword;
+    console.log(keyword);
+    
+    Restaurant.find({
+        $or: [
+            {name : {$regex: keyword, $options: 'i'}},
+            {category: {$regex: keyword, $options: 'i'}}
+        ]})
+        .lean()
+        .sort({_id: 'asc'})
+        .then(restaurants => res.render('index', {restaurants}))
+        .catch(error => console.error(error));
 })
 
 app.get('/restaurants/:id', (req, res) => {
-    //console.log(restaurants);
     const id = req.params.id;
-    let restaurant = restaurants.filter(rest => rest.id == id)[0];
-    console.log(restaurant);
-    res.render('show', { restaurant });
+    return Restaurant.findById(id)
+        .lean()
+        .then(restaurant => res.render('show', { restaurant }))
+        .catch(error => console.log(error));
 })
+
+
+
 
 
 app.listen(PORT, () => {

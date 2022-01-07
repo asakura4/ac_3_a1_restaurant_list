@@ -6,18 +6,32 @@ const restaurantSchema = new Schema({
         type: String,
         required: true
     },
-
-    image: {
-        type: String
+    name_en: {
+        type: String,
     },
     category :{
         type: String,
         required: true
     },
-    rate: {
+    image: {
+        type: String
+    },
+    location: {
+        type: String
+    },
+    phone: {
+        type: String
+    },
+    google_map: {
+        type: String
+    },
+    rating: {
         type: Number,
         retquired: true
-    }
+    },
+    description: {
+        type: String
+    },
 
 });
 
