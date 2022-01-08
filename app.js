@@ -33,11 +33,7 @@ app.post('/restaurants', (req, res) => {
     const {name, name_en, category, image, 
         address, phone, rating, description
     } = req.body; 
-    console.log({name, name_en, category, image, 
-        address, phone, rating, description
-    })
-   
-
+ 
     return Restaurant.create({name, name_en, category, image, 
         address, phone, rating, description
     }).then(() => res.redirect('/'))
@@ -73,25 +69,35 @@ app.get('/restaurants/:id', (req, res) => {
         .catch(error => console.log(error));
 })
 
-// app.get('/restaurants/:id/edit', (req, res) => {
-//     const id = req.params.id;
-//     return Restaurant.findById(id)
-//         .lean()
-//         .then(restaurant => res.render('edit', { restaurant }))
-//         .catch(error => console.log(error));
-// })
+app.get('/restaurants/:id/edit', (req, res) => {
+    const id = req.params.id;
+    return Restaurant.findById(id)
+        .lean()
+        .then(restaurant => res.render('edit', { restaurant }))
+        .catch(error => console.log(error));
+})
 
-// app.put('/restaurants/:id', (req, res) => {
-//     const id = req.params.id
-//     const { name, isDone } = req.body
-  
-//     return Restaurant.findById(id)
-//       .then(restaurant => {
-//         return restaurant.save()
-//       })
-//       .then(() => res.redirect(`/restaurant/${id}`))
-//       .catch(error => console.log(error))
-// })
+app.put('/restaurants/:id', (req, res) => {
+    const id = req.params.id
+    const {name, name_en, category, image, 
+        address, phone, rating, description
+    } = req.body; 
+    
+    return Restaurant.findById(id)
+      .then(restaurant => {
+        restaurant.name = name;
+        restaurant.name_en = name_en;
+        restaurant.category = category;
+        restaurant.image = image;
+        restaurant.address = address;
+        restaurant.phone = phone;
+        restaurant.rating = rating;
+        restaurant.description = description;
+        return restaurant.save()
+      })
+      .then(() => res.redirect(`/restaurants/${id}`))
+      .catch(error => console.log(error))
+})
 
 app.delete('/restaurants/:id', (req, res) => {
     const id = req.params.id;
