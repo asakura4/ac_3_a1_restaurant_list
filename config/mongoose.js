@@ -9,6 +9,7 @@ db.on('error', () => {
 
 db.once('open', () => {
     console.log('mongodb connected');
+    console.log(`Our Current Database Name : ${db.databaseName}`);
 
 });
 
