@@ -34,8 +34,12 @@
       <p class="mb-5">
         {{ restaurant.description }}
       </p>
-
+      {{#if restaurant.image}}
       <img class="rounded mx-auto d-block mb-4 w-100" src="{{ restaurant.image }}" alt="{{ restaurant.name }}" style="max-width: 600px;">
+      {{else}}
+      <img class="rounded mx-auto d-block mb-4 w-100" src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="{{ restaurant.name }}" style="max-width: 600px;">
+      {{/if}}
+    
     </div>
   </div>
 </div>
