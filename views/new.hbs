@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
         <form action="/restaurants" method="POST" style="display: inline;">
-            
+        <div class="form-group">   
             <div class="mb-1">
                 <span class="text-secondary">
                 <i class="fas fa-utensils pr-2"></i>
@@ -35,42 +35,43 @@
                 <input class="form-control" type="text" placeholder="圖檔URL" name="image">
             </div>
 
-            <p class="mb-1">
+            <div class="mb-1">
                 <span class="text-secondary">
                 <i class="fas fa-map-marker-alt pr-2"></i>
                 地址：
                 </span>
                 <input class="form-control" type="text" placeholder="地址" name="address">
                 
-            </p>
+            </div>
 
-            <p class="mb-1">
+            <div class="mb-1">
                 <span class="text-secondary">
                 <i class="fas fa-mobile-alt pr-2"></i>
                 電話：
                 </span>
                 <input class="form-control" type="text" placeholder="電話" name="phone">
-            </p>
+            </div>
 
-            <p class="mb-1">
+            <div class="mb-1">
                 <span class="text-secondary">
-                <i class="fas fa-mobile-alt pr-2"></i>
-                評價
+                <i class="fas fa-star fa-xs"></i>
+                評價：
                 </span>
                 <input class="form-control" type="text" placeholder="評價" name="rating" required>
-            </p>
+            </div>
 
-            <p class="mb-1">
+            <div class="mb-1">
                 <span class="text-secondary">
                 <i class="fas fa-mobile-alt pr-2"></i>
-                敘述說明
+                敘述說明：
                 </span>
-                <textarea class="form-control" type="text" placeholder="敘述說明" name="description"> </textarea>
-            </p>
+                <textarea class="form-control" type="text" placeholder="敘述說明" name="description"></textarea>
+            </div>
             
-            <div class="input-group-append form-btn">
+            <div class="form-btn">
                 <button class="btn btn-success" type="submit">Create</button>
             </div>
+        </div> 
         </form>
     </div>
   </div>

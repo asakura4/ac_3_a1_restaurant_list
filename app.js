@@ -29,10 +29,21 @@ app.get('/', (req, res) => {
         .catch(error => console.error(error));
 })
 
-// app.post('/restaurants', (req, res) => {
+app.post('/restaurants', (req, res) => {
+    const {name, name_en, category, image, 
+        address, phone, rating, description
+    } = req.body; 
+    console.log({name, name_en, category, image, 
+        address, phone, rating, description
+    })
+   
 
+    return Restaurant.create({name, name_en, category, image, 
+        address, phone, rating, description
+    }).then(() => res.redirect('/'))
+    .catch(error => console.log(error));
 
-// })
+})
 
 app.get('/restaurants/new', (req, res) => {
     return res.render('new');
