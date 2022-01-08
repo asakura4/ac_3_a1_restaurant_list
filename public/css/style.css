@@ -99,3 +99,13 @@ header {
   }
   
 }
+
+.card-btn {
+  padding: 5px 0px 0px 0px;
+  text-align: right;
+}
+
+.form-btn {
+  padding: 5px 0px 15px 0px;
+  text-align: right;
+}

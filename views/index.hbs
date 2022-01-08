@@ -33,11 +33,20 @@
                         {{ this.rating }}
                         <i class="fas fa-star fa-xs"></i>
                       </span>
-        
+                      <div class="card-link card-btn">
+                          <a class="btn btn-secondary btn-sm" href="/restaurants/{{ this._id }}" role="button">Detail</a>
+                          <a class="btn btn-info btn-sm" href="/restaurants/{{ this._id }}/edit" role="button">Edit</a>
+                          <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+                            <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                          </form>
+                      </div> 
                     </div>
                   </div>
                 </a>              
               {{/each}}
+            </div>
+            <div class="form-btn">
+              <a role="button" class="btn btn-primary btn-lg" href="/restaurants/new">Add New!</a>
             </div>
       </div>
   </div>
