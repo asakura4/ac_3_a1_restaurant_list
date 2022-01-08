@@ -4,8 +4,10 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const path = require('path');
 
+
 const Restaurant = require('./models/restaurant');
 
+const route = require('./routes');
 const app = express();
 
 require('./config/mongoose');
@@ -18,99 +20,9 @@ app.use(methodOverride('_method'));
 
 // CSS file setting 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(route);
 
 
-app.get('/', (req, res) => {
-    //console.log(restaurants);
-    Restaurant.find()
-        .lean()
-        .sort({_id: 'asc'})
-        .then(restaurants => res.render('index', {restaurants}))
-        .catch(error => console.error(error));
-})
-
-app.post('/restaurants', (req, res) => {
-    const {name, name_en, category, image, 
-        address, phone, rating, description
-    } = req.body; 
- 
-    return Restaurant.create({name, name_en, category, image, 
-        address, phone, rating, description
-    }).then(() => res.redirect('/'))
-    .catch(error => console.log(error));
-
-})
-
-app.get('/restaurants/new', (req, res) => {
-    return res.render('new');
-});
-
-
-app.get('/restaurants/search', (req, res) => {
-    const keyword = req.query.keyword;
-    console.log(keyword);
-    
-    Restaurant.find({
-        $or: [
-            {name : {$regex: keyword, $options: 'i'}},
-            {category: {$regex: keyword, $options: 'i'}}
-        ]})
-        .lean()
-        .sort({_id: 'asc'})
-        .then(restaurants => res.render('index', {restaurants}))
-        .catch(error => console.error(error));
-})
-
-app.get('/restaurants/:id', (req, res) => {
-    const id = req.params.id;
-    return Restaurant.findById(id)
-        .lean()
-        .then(restaurant => res.render('show', { restaurant }))
-        .catch(error => console.log(error));
-})
-
-app.get('/restaurants/:id/edit', (req, res) => {
-    const id = req.params.id;
-    return Restaurant.findById(id)
-        .lean()
-        .then(restaurant => res.render('edit', { restaurant }))
-        .catch(error => console.log(error));
-})
-
-app.put('/restaurants/:id', (req, res) => {
-    const id = req.params.id
-    const {name, name_en, category, image, 
-        address, phone, rating, description
-    } = req.body; 
-    
-    return Restaurant.findById(id)
-      .then(restaurant => {
-        restaurant.name = name;
-        restaurant.name_en = name_en;
-        restaurant.category = category;
-        restaurant.image = image;
-        restaurant.address = address;
-        restaurant.phone = phone;
-        restaurant.rating = rating;
-        restaurant.description = description;
-        return restaurant.save()
-      })
-      .then(() => res.redirect(`/restaurants/${id}`))
-      .catch(error => console.log(error))
-})
-
-app.delete('/restaurants/:id', (req, res) => {
-    const id = req.params.id;
-    return Restaurant.findById(id)
-        .then(restaurant => restaurant.remove())
-        .then(() => res.redirect('/'))
-        .catch(error => console.log(error));
-})
-
-
-
-
-
-app.listen(PORT, () => {
+app.listen( process.env.PORT || PORT, () => {
     console.log(`App is running on localhost:${PORT}`);
 })
