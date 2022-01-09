@@ -21,10 +21,29 @@ router.get('/register', (req, res) =>{
 
 router.post('/register', (req, res) => {
     const {name, email, password, confirmPassword} = req.body;
-    
+    const errors = []
+    if (!name || !email || !password || !confirmPassword) {
+        errors.push({ message: 'All columns is required.' })
+      }
+    if (password !== confirmPassword) {
+        errors.push({ message: 'Password does not match.' })
+    }
+
+    if(errors.length){
+        return res.render('register', {
+            errors,
+            name,
+            email,
+            password,
+            confirmPassword
+        })
+    }
+
     User.findOne({email}).then(user => {
         if(user){
+            errors.push({ message: 'This email is already registered.' })
             return res.render('register', {
+                errors,
                 name,
                 email,
                 password,
@@ -44,6 +63,7 @@ router.post('/register', (req, res) => {
 
 router.get('/logout', (req, res) => {
     req.logout()
+    req.flash('success_msg', 'Logout successfully!')
     res.redirect('/users/login');
 })
 

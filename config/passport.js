@@ -18,10 +18,12 @@ module.exports = (app) => {
         User.findOne({email})
             .then(user => {
                 if(!user){
-                    return done(null, false);
+                    
+                    return done(null, false, req.flash('warning_msg', 'Email is not registered'));
                 }
                 if(user.password !== password){
-                    return done(null, false);
+                    
+                    return done(null, false, req.flash('warning_msg', 'Email or Password is incorrect'));
                 }
                 return done(null, user);
             })
