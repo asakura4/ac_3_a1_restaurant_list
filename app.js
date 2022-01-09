@@ -30,8 +30,10 @@ app.use(methodOverride('_method'))
 
 // CSS file setting
 app.use(express.static(path.join(__dirname, '/public')))
-app.use(routes)
 usePassport(app)
+
+app.use(routes)
+
 
 app.listen(process.env.PORT || PORT, () => {
   console.log(`App is running on localhost:${PORT}`)
