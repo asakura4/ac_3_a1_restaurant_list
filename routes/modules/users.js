@@ -23,8 +23,8 @@ router.get('/register', (req, res) =>{
 router.post('/register', (req, res) => {
     const {name, email, password, confirmPassword} = req.body;
     const errors = []
-    if (!name || !email || !password || !confirmPassword) {
-        errors.push({ message: 'All columns is required.' })
+    if (!email || !password || !confirmPassword) {
+        errors.push({ message: 'some column(s) is(are) missing.' })
       }
     if (password !== confirmPassword) {
         errors.push({ message: 'Password does not match.' })
