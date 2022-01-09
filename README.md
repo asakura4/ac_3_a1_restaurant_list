@@ -14,7 +14,7 @@ Must create your account to use the service, or login via your Facebook account.
 Each email can only register one time.
 After login, the user is allowed to do the following action.
 <ul>
-  <li>Add a new restaurant to the user's list, but duplicate restaurant name is prohibited</li>
+  <li>Add a new restaurant to the user's list, but duplicate restaurant name is prohibited. Also, category and rating is required.</li>
   <li>Look the detail of the restaurant</li>
   <li>Edit an existing restaurant.</li>
   <li>Search the restaurants by keyword(name and category only)</li>
