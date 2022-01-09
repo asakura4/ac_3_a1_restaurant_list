@@ -3,13 +3,13 @@ const session = require('express-session')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-const flash = require('connect-flash');
-if(process.env.NODE_ENV !== 'prod'){
-  require('dotenv').config();
+const flash = require('connect-flash')
+if (process.env.NODE_ENV !== 'prod') {
+  require('dotenv').config()
 }
 
 const path = require('path')
-const usePassport = require('./config/passport');
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 const PORT = process.env.PORT
@@ -40,9 +40,7 @@ app.use((req, res, next) => {
   next()
 })
 
-
 app.use(routes)
-
 
 app.listen(PORT, () => {
   console.log(`App is running on localhost:${PORT}`)
